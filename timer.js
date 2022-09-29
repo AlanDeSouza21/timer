@@ -85,14 +85,14 @@ function cronometra(){
 
     idSeg.value--
     if(idSeg.value == 0){
-        idSeg.value = 59
+        idSeg.value = 60
         idMin.value--
         if(idMin.value == 0){
-            idMin.value = 59
+            idMin.value = 60
             idHora.value--
         }
         if(idHora.value == 0 && idMin.value == 0 ){
-            idSeg.value = 59
+            idSeg.value = 60
             clearInterval(interval)
             musicas.play()
         }
