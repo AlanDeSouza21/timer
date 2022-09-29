@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timer</title>
+    <link rel="stylesheet" href="timer.css">
+    <script src="https://kit.fontawesome.com/8afec02d15.js"
+    crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <main>
+        <nav id="nave">
+            <div id="nave_div">
+                <div id="div_Horas">
+                    <input type="number" name="segun" id="horas" >:<br>
+                    HORAS
+                </div>
+                <div id="div_Minutos">
+                    <input type="number" name="segun" id="minu" >:<br>
+                    MINUTOS
+                </div>
+                <div id="div_Segundos">
+                    <input type="number" name="segun" id="segun" ><br>
+                    SEGUNDOS
+                </div>
+            </div>
+            <button onclick="definir()" id="btn_Defi"> DEFINIR </button>
+            <button id="btn_Redefi"> REDEFINIR </button>
+        </nav>
+        <section>
+            <div>
+                <h1 id="hora">00</h1>
+                <p>HORAS</p>
+            </div>
+            <h1>:</h1>
+            <div>
+                <h1 id="minnuto">00</h1>
+                <p>MINUTOS</p>
+            </div>
+            <h1>:</h1>
+            <div>
+                <h1 id="segundo">00</h1>
+                <p>SEGUNDOS</p>
+            </div>
+        </section>
+        <div class="icones">
+            <i class="fa-solid fa-play" onclick="inicia()"></i>
+            <i class="fa-solid fa-pause" onclick="pausa()"></i>
+            <i class="fa-solid fa-stop" onclick="para(exporta_para)"></i>
+        </div>
+        <div id="avisoCancela">
+    
+        </div>
+    </main>
+    <audio src="som\Som De Despertador   Som De Alarme Para Acordar   Som De Alarme Alto   Sound Effect.mp3"></audio>
+    <script src="timer.js"></script>
+</body>
+</html>
