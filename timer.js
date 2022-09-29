@@ -21,6 +21,7 @@ botao_redef.addEventListener("click", () => {
 })
 
 function inicia(){
+    cronometra()
     interval = setInterval(cronometra, 1000)
 }
 
@@ -76,6 +77,8 @@ function cronometra(){
 
     if(ativaPlay == 0){
         alert('valor não definido')
+        botao_play.style.display = 'block'
+        botao_pause.style.display = 'none'
         clearInterval(interval)
         throw new Error('valor não definido')
     }

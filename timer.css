@@ -36,7 +36,7 @@ input{
 }
 
 #btn_Defi{
-    margin-left: 177px;
+    margin-left: 178px;
     display: block;
     width: 360px;
     font: bold 20pt sans-serif;
@@ -44,7 +44,7 @@ input{
 }
 
 #btn_Redefi{
-    margin-left: 177px;
+    margin-left: 178px;
     display: none;
     width: 360px;
     font: bold 20pt sans-serif;
@@ -89,6 +89,7 @@ input{
 #div_Segundos{
     float: left;
     margin-left: 7px;
+    margin-bottom: 15px;
 }
 
 #nave_div{
