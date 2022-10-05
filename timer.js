@@ -1,20 +1,31 @@
+// DOM H1
 var seg = document.getElementById('segundo')
 var min = document.getElementById('minnuto')
 var hora = document.getElementById('hora')
+// VARIAVEL INTERVAL
 var interval = ''
+// DOM IMPUT
 var idSeg = document.getElementById('segun')
 var idMin = document.getElementById('minu')
 var idHora = document.getElementById('horas')
+// PARAMETRO PARA FUNÇÃO PARA VARIAVEL LOCALIZADA EM TRATAMENTO
 var exporta_para = ''
+// DOM ICONES 
 var botao_play = document.querySelector('.fa-play')
 var botao_pause = document.querySelector('.fa-pause')
 var botao_redef = document.getElementById('btn_Redefi')
 var botao_defini = document.getElementById('btn_Defi')
+// CSS ICONES
 botao_pause.style.display = 'none'
 botao_redef.style.display = 'none'
+// VARIAVEL LOCALIZADA NA FUNÇÃO DEFINIR PARA ATIVAR O PLAY
 var ativaPlay = 0
+// DOM MUSICAS
 let musicas = document.querySelector('audio')
-
+// MODIFICADORES DO H1 QUE MOSTRA O TEMPO REAL DECORRIDO
+var exp_PARAseg = ''
+var exp_PARAmin = ''
+var exp_PARAhora = ''
 
 botao_redef.addEventListener("click", () => {
     location.reload()
@@ -22,7 +33,7 @@ botao_redef.addEventListener("click", () => {
 
 function inicia(){
     cronometra()
-    interval = setInterval(cronometra, 1000)
+    interval = setInterval(cronometra, 100)
 }
 
 function pausa(){
@@ -52,6 +63,13 @@ function definir(){
     botao_redef.style.display = 'block'
     botao_defini.style.display = 'none'
 
+    if(idHora.value <= 0 && idMin.value <= 0 && idSeg.value <= 0){
+        alert('nenhum valor detectado')
+        botao_redef.style.display = 'none'
+        botao_defini.style.display = 'block'
+        throw new Error('nenhum valor detectado') 
+    }  
+
     if(idSeg.value > 60 || idMin.value > 60 ){
         window.alert('segundos ou minutos devem ser nenor que 60')
         botao_redef.style.display = 'none'
@@ -71,7 +89,7 @@ function definir(){
 }
 
 function cronometra(){
-
+    
     botao_play.style.display = 'none'
     botao_pause.style.display = 'block'
 
@@ -83,48 +101,64 @@ function cronometra(){
         throw new Error('valor não definido')
     }
 
-    idSeg.value--
-    if(idSeg.value == 0){
+    if(idHora.value > 0 && idMin.value == 0 && idSeg.value == 0){
+        idMin.value = 59
+        idSeg.value = 60
+        idHora.value--        
+    }
+    if(idHora.value > 0 && idMin.value > 0 && idSeg.value == 0 || idHora.value == 0 && idMin.value > 0 && idSeg.value == 0){
         idSeg.value = 60
         idMin.value--
-        if(idMin.value == 0){
-            idMin.value = 60
-            idHora.value--
-        }
-        if(idHora.value == 0 && idMin.value == 0 ){
-            idSeg.value = 60
-            clearInterval(interval)
-            musicas.play()
-        }
-        if(idHora.value < 0){
-            idHora.value = 0
-            idMin.value = 0
-        }
-        if(idMin.value < 0){
-            idMin.value = 0
-            idSeg.value = 0
+    }
 
-            let Cont_Final = document.createElement("h2")
-            Cont_Final.innerHTML = 'CONTAGEM FINALIZADA'
-            document.getElementById('avisoCancela').appendChild(Cont_Final)
+
+    if(idMin.value == 0){
+        idMin.value = 60
+    }
+    if(idSeg.value == 0){
+        idSeg.value = 60
+    }
+
+    idSeg.value--
+    if(idSeg.value == 60){
+        idMin.value--
+    }
+    if(idMin.value == 59 && idSeg.value == 60){
+        idHora.value--
+    }
+
+    if(idHora.value == 0 && idSeg.value == 0 && idMin.value == 60){
+        idSeg.value--
+
+        let Cont_Final = document.createElement("h2")
+        Cont_Final.innerHTML = 'CONTAGEM FINALIZADA'
+        document.getElementById('avisoCancela').appendChild(Cont_Final)
             
-            clearInterval(interval)
-            musicas.play()
-        }
-}
-
-
-if(idSeg.value < 0 || idMin.value < 0){
-        idMin.value = 0
-        idSeg.value = 0
-        alert('nenhum valor detectado')
         clearInterval(interval)
-}
+        musicas.play()
+    }
+    if(idSeg.value < 0){
+        idSeg.value = 0
+    }
+    tratamento(idHora.value)
+    tratamento(idMin.value)
+    tratamento(idSeg.value)
     
+}
 
-    var exp_PARAseg = document.getElementById('segundo').innerText = Number(idSeg.value) < 10 ? '0'+Number(idSeg.value) : Number(idSeg.value)
-    var exp_PARAmin = document.getElementById('minnuto').innerText = Number(idMin.value) < 10 ? '0'+Number(idMin.value) : Number(idMin.value)
-    var exp_PARAhora = document.getElementById('hora').innerText = Number(idHora.value) < 10 ? '0'+Number(idHora.value) : Number(idHora.value)
+function tratamento(){
+    
+    if(idMin.value == 60){
+        idMin.value = 0
+    }
+    if(idSeg.value == 60){
+        idSeg.value = 0
+    }
+
+    exp_PARAseg = document.getElementById('segundo').innerText = idSeg.value < 10 ? '0'+idSeg.value : idSeg.value
+    exp_PARAmin = document.getElementById('minnuto').innerText = idMin.value < 10 ? '0'+idMin.value : idMin.value
+    exp_PARAhora = document.getElementById('hora').innerText = idHora.value < 10 ? '0'+idHora.value : idHora.value
 
     exporta_para = `contagem interrompida em: ${exp_PARAhora}:${exp_PARAmin}:${exp_PARAseg}`
+
 }
