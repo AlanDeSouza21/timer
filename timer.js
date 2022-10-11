@@ -26,6 +26,17 @@ let musicas = document.querySelector('audio')
 var exp_PARAseg = ''
 var exp_PARAmin = ''
 var exp_PARAhora = ''
+var velocidade = 1000
+
+document.addEventListener("keyup", function(e){
+    if(e.key === "i" && botao_pause.style.display == 'none'){
+        cronometra()
+        interval = setInterval(cronometra, velocidade)
+    }
+    else if(e.key === "p"){
+        pausa()
+    }
+})
 
 botao_redef.addEventListener("click", () => {
     location.reload()
@@ -33,7 +44,7 @@ botao_redef.addEventListener("click", () => {
 
 function inicia(){
     cronometra()
-    interval = setInterval(cronometra, 100)
+    interval = setInterval(cronometra, velocidade)
 }
 
 function pausa(){
@@ -101,6 +112,14 @@ function cronometra(){
         throw new Error('valor não definido')
     }
 
+    if(idHora.value == 0 && idMin.value == 0 && idSeg.value == 0){
+        alert('valor inexistente')
+        botao_play.style.display = 'block'
+        botao_pause.style.display = 'none'
+        clearInterval(interval)
+        throw new Error('valor não definido')
+    }
+
     if(idHora.value > 0 && idMin.value == 0 && idSeg.value == 0){
         idMin.value = 59
         idSeg.value = 60
@@ -110,7 +129,6 @@ function cronometra(){
         idSeg.value = 60
         idMin.value--
     }
-
 
     if(idMin.value == 0){
         idMin.value = 60
